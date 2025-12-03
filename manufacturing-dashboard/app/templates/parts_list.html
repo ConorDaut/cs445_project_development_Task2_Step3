@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Parts</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Part_ID</th><th>Name</th><th>Size</th><th>Price</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in parts %}
+    <tr>
+      <td>{{ p.Part_ID }}</td>
+      <td>{{ p.Part_Name }}</td>
+      <td>{{ p.Part_Size }}</td>
+      <td>{{ "%.2f"|format(p.Part_Price) }}</td>
+      <td>
+        {% if session.get('account_privilege') == 'admin' %}
+          <a href="{{ url_for('parts_edit', part_id=p.Part_ID) }}">Edit</a>
+        {% else %}
+          -
+        {% endif %}
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No parts.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if session.get('account_privilege') == 'admin' %}
+<p><a class="button" href="{{ url_for('parts_new') }}">Create new part</a></p>
+{% endif %}
+{% endblock %}
