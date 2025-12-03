@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Current orders</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Date</th><th>Status</th><th>Part_ID</th><th>Quantity</th><th>Price</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in orders %}
+    <tr>
+      <td>{{ o.Order_ID }}</td>
+      <td>{{ o.Order_Date }}</td>
+      <td>{{ o.Order_Status }}</td>
+      <td>{{ o.Part_ID or "-" }}</td>
+      <td>{{ o.Order_Quantity }}</td>
+      <td>{{ "%.2f"|format(o.Order_Price) }}</td>
+      <td><a href="{{ url_for('order_edit', order_id=o.Order_ID) }}">Edit</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7">No current orders.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p><a class="button" href="{{ url_for('order_new') }}">Create new order</a></p>
+{% endblock %}
