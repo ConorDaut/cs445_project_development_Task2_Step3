@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create account</h2>
+<form method="post">
+  <label>Username</label>
+  <input name="Account_Username" required>
+  <label>Password</label>
+  <input name="Account_Password" type="password" required>
+  <label>Privilege</label>
+  <select name="Account_Privilege">
+    <option value="standard">Standard</option>
+    <option value="admin">Admin</option>
+  </select>
+  <label>Company</label>
+  <input name="Account_Company">
+  <label>Shipping address</label>
+  <input name="Account_Shipping_Address">
+  <label>Contact info</label>
+  <input name="Account_Contact_Info">
+  <button type="submit">Create</button>
+</form>
+{% endblock %}
