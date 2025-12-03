@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Previous orders</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Date</th><th>Status</th><th>Part_ID</th><th>Quantity</th><th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in orders %}
+    <tr>
+      <td>{{ o.Order_ID }}</td>
+      <td>{{ o.Order_Date }}</td>
+      <td>{{ o.Order_Status }}</td>
+      <td>{{ o.Part_ID or "-" }}</td>
+      <td>{{ o.Order_Quantity }}</td>
+      <td>{{ "%.2f"|format(o.Order_Price) }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">No previous orders.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
