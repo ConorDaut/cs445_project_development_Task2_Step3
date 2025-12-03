@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Manufacturing Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Manufacturing Dashboard</h1>
+    <nav>
+      {% if session.get('account_id') %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('orders_current') }}">Current orders</a>
+        <a href="{{ url_for('orders_previous') }}">Previous orders</a>
+        <a href="{{ url_for('parts_list') }}">Parts</a>
+        <a href="{{ url_for('account') }}">Account</a>
+        {% if session.get('account_privilege') == 'admin' %}
+          <a href="{{ url_for('admin_orders') }}">Admin orders</a>
+          <a href="{{ url_for('parts_new') }}">New part</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('create_account') }}">Create account</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash">
+      {% for category, msg in messages %}
+        <div class="flash-{{ category }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
