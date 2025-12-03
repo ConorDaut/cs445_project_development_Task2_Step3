@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Account info</h2>
+<table>
+  <tr><th>Account_ID</th><td>{{ user.Account_ID }}</td></tr>
+  <tr><th>Account_Username</th><td>{{ user.Account_Username }}</td></tr>
+  <tr><th>Account_Privilege</th><td>{{ user.Account_Privilege }}</td></tr>
+  <tr><th>Account_Company</th><td>{{ user.Account_Company }}</td></tr>
+  <tr><th>Account_Shipping_Address</th><td>{{ user.Account_Shipping_Address }}</td></tr>
+  <tr><th>Account_Contact_Info</th><td>{{ user.Account_Contact_Info }}</td></tr>
+</table>
+{% endblock %}
