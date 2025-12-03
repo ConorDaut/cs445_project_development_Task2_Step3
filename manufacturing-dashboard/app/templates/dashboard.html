@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="metrics">
+  <div class="card"><strong>Total parts:</strong> {{ parts_count }}</div>
+  <div class="card"><strong>Total orders:</strong> {{ orders_count }}</div>
+  {% if is_admin %}
+    <div class="card"><strong>Role:</strong> Admin</div>
+  {% else %}
+    <div class="card"><strong>Role:</strong> Standard</div>
+  {% endif %}
+</div>
+
+<h3>Recent current orders</h3>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Date</th><th>Status</th><th>Quantity</th><th>Price</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in current_orders %}
+    <tr>
+      <td>{{ o.Order_ID }}</td>
+      <td>{{ o.Order_Date }}</td>
+      <td>{{ o.Order_Status }}</td>
+      <td>{{ o.Order_Quantity }}</td>
+      <td>{{ "%.2f"|format(o.Order_Price) }}</td>
+      <td><a href="{{ url_for('order_edit', order_id=o.Order_ID) }}">Edit</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">No current orders.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>Recent previous orders</h3>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Date</th><th>Status</th><th>Quantity</th><th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in previous_orders %}
+    <tr>
+      <td>{{ o.Order_ID }}</td>
+      <td>{{ o.Order_Date }}</td>
+      <td>{{ o.Order_Status }}</td>
+      <td>{{ o.Order_Quantity }}</td>
+      <td>{{ "%.2f"|format(o.Order_Price) }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No previous orders.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p><a class="button" href="{{ url_for('order_new') }}">Create new order</a></p>
+{% endblock %}
